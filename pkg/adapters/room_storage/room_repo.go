@@ -28,13 +28,10 @@ func NewRoomRepo(db *gorm.DB, cached bool, provider cache.Provider) port.Repo {
 	}
 }
 
-func (r *roomRepo) Create(ctx context.Context, userDomain domain.Room) (domain.RoomID, error) {
-	user, err := mapper.RoomDomain2Storage(userDomain)
-	if err != nil {
-		return "", err
-	}
-
-	return domain.RoomID(user.ID.String()), r.db.Table("users").WithContext(ctx).Create(user).Error
+func (r *roomRepo) Create(ctx context.Context, roomDomain domain.Room) (domain.RoomID, error) {
+	room := mapper.RoomDomain2Storage(roomDomain)
+	err := r.db.Table("rooms").WithContext(ctx).Create(room).Error
+	return domain.RoomID(room.ID.String()), err
 }
 
 func (r *roomRepo) GetByFilter(ctx context.Context, filter *domain.RoomFilter) (*domain.Room, error) {

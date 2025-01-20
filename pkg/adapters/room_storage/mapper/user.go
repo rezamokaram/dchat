@@ -6,7 +6,7 @@ import (
 	"github.com/google/uuid"
 )
 
-func UserDomain2Storage(userDomain domain.User) (*types.User, error) {
+func UserDomain2Storage(userDomain domain.User) *types.User {
 	res := &types.User{
 		CreatedAt: userDomain.CreatedAt,
 		DeletedAt: ToDeletedAt(userDomain.DeletedAt),
@@ -15,9 +15,8 @@ func UserDomain2Storage(userDomain domain.User) (*types.User, error) {
 		Username:  userDomain.Username,
 	}
 
-	var err error
-	res.ID, err = uuid.Parse(string(userDomain.ID))
-	return res, err
+	res.ID, _ = uuid.Parse(string(userDomain.ID))
+	return res
 }
 
 func UserStorage2Domain(user types.User) *domain.User {

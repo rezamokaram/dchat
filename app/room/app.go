@@ -10,8 +10,10 @@ import (
 	"github.com/RezaMokaram/chapp/internal/user"
 	userPort "github.com/RezaMokaram/chapp/internal/user/port"
 	storage "github.com/RezaMokaram/chapp/pkg/adapters/room_storage"
+	"github.com/RezaMokaram/chapp/pkg/adapters/room_storage/types"
 	"github.com/RezaMokaram/chapp/pkg/cache"
 	"github.com/RezaMokaram/chapp/pkg/postgres"
+
 	// "github.com/go-co-op/gocron/v2"
 
 	redisAdapter "github.com/RezaMokaram/chapp/pkg/adapters/cache"
@@ -52,8 +54,8 @@ func (a *app) userServiceWithDB(db *gorm.DB) userPort.Service {
 func (a *app) RoomService(ctx context.Context) roomPort.Service {
 	db := appCtx.GetDB(ctx)
 	if db == nil {
-		if a.userService == nil {
-			a.userService = a.userServiceWithDB(a.db)
+		if a.roomService == nil {
+			a.roomService = a.roomServiceWithDB(a.db)
 		}
 		return a.roomService
 	}
@@ -97,6 +99,10 @@ func NewApp(cfg config.RoomConfig) (RoomApp, error) {
 	}
 
 	if err := a.setDB(); err != nil {
+		return nil, err
+	}
+
+	if err := types.Migrate(a.db); err != nil {
 		return nil, err
 	}
 

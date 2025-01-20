@@ -8,6 +8,7 @@ import (
 )
 
 type Room struct {
-	ID      uuid.UUID `gorm:"type:uuid;default:uuid_generate_v4();primaryKey"`
-	OwnerId uuid.UUID
+	ID      uuid.UUID `json:"id" gorm:"type:uuid;default:gen_random_uuid();primaryKey"`
+	OwnerId uuid.UUID `json:"owner_id"`
+	Name    string    `json:"name"`
 }

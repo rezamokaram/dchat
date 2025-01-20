@@ -6,21 +6,19 @@ import (
 	"github.com/google/uuid"
 )
 
-func RoomDomain2Storage(userDomain domain.Room) (*types.Room, error) {
-	res := &types.Room{}
-	var err error
-	res.OwnerId, err = uuid.Parse(string(userDomain.OwnerId))
-	if err != nil {
-		return nil, err
+func RoomDomain2Storage(roomDomain domain.Room) *types.Room {
+	res := &types.Room{
+		Name: roomDomain.Name,
 	}
-
-	res.ID, err = uuid.Parse(string(userDomain.ID))
-	return res, err
+	res.ID, _ = uuid.Parse(string(roomDomain.ID))
+	res.OwnerId, _ = uuid.Parse(string(roomDomain.OwnerId))
+	return res
 }
 
-func RoomStorage2Domain(user types.Room) *domain.Room {
+func RoomStorage2Domain(room types.Room) *domain.Room {
 	return &domain.Room{
-		ID:      domain.RoomID(user.ID.String()),
-		OwnerId: user.OwnerId.String(),
+		ID:      domain.RoomID(room.ID.String()),
+		OwnerId: room.OwnerId.String(),
+		Name:    room.Name,
 	}
 }

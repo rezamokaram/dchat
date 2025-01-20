@@ -2,6 +2,7 @@ package grpc
 
 import (
 	"context"
+	// "log"
 
 	"github.com/RezaMokaram/chapp/api/handler/common"
 	"github.com/RezaMokaram/chapp/api/service"
@@ -9,9 +10,12 @@ import (
 	"github.com/RezaMokaram/chapp/config"
 )
 
-// user service transient instance handler
-func userServiceGetter(appContainer app.RoomApp, cfg config.RoomConfig) common.ServiceGetter[*service.RoomService] {
+func roomServiceGetter(appContainer app.RoomApp, cfg config.RoomConfig) common.ServiceGetter[*service.RoomService] {
 	return func(ctx context.Context) *service.RoomService {
-		return service.NewRoomService(appContainer.UserService(ctx), appContainer.RoomService(ctx))
+		res := service.NewRoomService(appContainer.UserService(ctx), appContainer.RoomService(ctx))
+		if res == nil {
+			panic("service getter problem!")
+		}
+		return res
 	}
 }

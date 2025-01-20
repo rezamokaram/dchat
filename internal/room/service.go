@@ -26,18 +26,18 @@ func NewService(repo port.Repo) port.Service {
 	}
 }
 
-func (s *service) CreateRoom(ctx context.Context, user domain.Room) (domain.RoomID, error) {
-	if err := user.Validate(); err != nil {
+func (s *service) CreateRoom(ctx context.Context, room domain.Room) (domain.RoomID, error) {
+	if err := room.Validate(); err != nil {
 		return "", fmt.Errorf("%w %w", ErrRoomCreationValidation, err)
 	}
 
-	userID, err := s.repo.Create(ctx, user)
+	roomID, err := s.repo.Create(ctx, room)
 	if err != nil {
-		log.Println("error on creating new user : ", err.Error())
+		log.Println("error on creating new room : ", err.Error())
 		return "", ErrRoomOnCreate
 	}
 
-	return userID, nil
+	return roomID, nil
 }
 
 func (s *service) GetRoomByFilter(ctx context.Context, filter *domain.RoomFilter) (*domain.Room, error) {

@@ -3,6 +3,7 @@ package room_storage
 import (
 	"context"
 	"errors"
+	"fmt"
 
 	"github.com/RezaMokaram/chapp/internal/user/domain"
 	"github.com/RezaMokaram/chapp/internal/user/port"
@@ -30,12 +31,10 @@ func NewUserRepo(db *gorm.DB, cached bool, provider cache.Provider) port.Repo {
 }
 
 func (r *userRepo) Create(ctx context.Context, userDomain domain.User) (domain.UserID, error) {
-	user, err := mapper.UserDomain2Storage(userDomain)
-	if err != nil {
-		return "", err
-	}
-
-	return domain.UserID(user.ID.String()), r.db.Table("users").WithContext(ctx).Create(user).Error
+	fmt.Println("REZA: ", userDomain)
+	user := mapper.UserDomain2Storage(userDomain)
+	err := r.db.Table("users").WithContext(ctx).Create(user).Error
+	return domain.UserID(user.ID.String()), err
 }
 
 func (r *userRepo) GetByFilter(ctx context.Context, filter *domain.UserFilter) (*domain.User, error) {

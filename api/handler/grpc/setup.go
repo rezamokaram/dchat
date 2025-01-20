@@ -12,7 +12,7 @@ import (
 )
 
 func Run(appContainer room.RoomApp, cfg config.RoomConfig) error {
-	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", cfg.Room.Port))
+	lis, err := net.Listen("tcp", fmt.Sprintf("%s:%d", cfg.Room.Host, cfg.Room.Port))
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
@@ -20,11 +20,17 @@ func Run(appContainer room.RoomApp, cfg config.RoomConfig) error {
 	s := grpc.NewServer(
 		grpc.ChainUnaryInterceptor(
 			contextUnaryInterceptor,
-			setTransactionUnaryInterceptor(appContainer.DB()),
+			setTransactionUnaryInterceptor(appContainer),
+			setServiceGetterUnaryInterceptor(roomServiceGetter(appContainer, cfg)),
+			loggingUnaryInterceptor,
+			panicRecoveryInterceptor,
 		),
 	)
 
-	pb.RegisterRoomServiceServer(s, &roomServer{})
+	pb.RegisterRoomServiceServer(s, &roomServer{
+		appContainer: appContainer,
+	})
 
+	log.Printf("gRPC server is starting on %v:%v\n", cfg.Room.Host, cfg.Room.Port)
 	return s.Serve(lis)
 }

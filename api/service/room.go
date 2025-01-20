@@ -4,9 +4,10 @@ import (
 	"context"
 
 	"github.com/RezaMokaram/chapp/api/pb"
+	roomDomain "github.com/RezaMokaram/chapp/internal/room/domain"
 	roomPort "github.com/RezaMokaram/chapp/internal/room/port"
 	"github.com/RezaMokaram/chapp/internal/user"
-	"github.com/RezaMokaram/chapp/internal/user/domain"
+	userDomain "github.com/RezaMokaram/chapp/internal/user/domain"
 	userPort "github.com/RezaMokaram/chapp/internal/user/port"
 )
 
@@ -32,7 +33,7 @@ var (
 )
 
 func (s *RoomService) SignUp(ctx context.Context, req *pb.UserSignUpRequest) (*pb.UserSignUpResponse, error) {
-	userID, err := s.userSvc.CreateUser(ctx, domain.User{
+	userID, err := s.userSvc.CreateUser(ctx, userDomain.User{
 		FirstName: req.GetFirstName(),
 		LastName:  req.GetLastName(),
 		Username:  req.GetUsername(),
@@ -49,7 +50,7 @@ func (s *RoomService) SignUp(ctx context.Context, req *pb.UserSignUpRequest) (*p
 }
 
 func (s *RoomService) SignIn(ctx context.Context, req *pb.UserSignInRequest) (*pb.UserSignInResponse, error) {
-	user, err := s.userSvc.GetUserByFilter(ctx, &domain.UserFilter{
+	user, err := s.userSvc.GetUserByFilter(ctx, &userDomain.UserFilter{
 		Username: req.Username,
 	})
 	if err != nil {
@@ -63,5 +64,20 @@ func (s *RoomService) SignIn(ctx context.Context, req *pb.UserSignInRequest) (*p
 	return &pb.UserSignInResponse{
 		Success: true,
 		UserId:  string(user.ID),
+	}, nil
+}
+
+func (s *RoomService) CreateRoom(ctx context.Context, req *pb.CreateRoomRequest) (*pb.CreateRoomResponse, error) {
+	roomId, err := s.roomSvc.CreateRoom(ctx, roomDomain.Room{
+		OwnerId: req.UserId,
+		Name:    req.RoomName,
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	return &pb.CreateRoomResponse{
+		Success: true,
+		RoomId:  string(roomId),
 	}, nil
 }
