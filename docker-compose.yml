@@ -1,0 +1,39 @@
+version: "3.8"
+
+volumes:
+  db_data:
+    name: db_data
+    driver: local
+  
+  redis-data: 
+    driver: local
+
+services:
+  postgres:
+    image: postgres:17.2-alpine3.21
+    container_name: chapp_room_postgres
+    hostname: chapp_room_postgres
+    restart: always
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=${CHAPP_POSTGRES_DB}
+      - POSTGRES_USER=${CHAPP_POSTGRES_USER}
+      - POSTGRES_PASSWORD=${CHAPP_POSTGRES_PASSWORD}
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-q", "-d", "${POSTGRES_DB}", "-U", "${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  
+  redis: 
+    image: redis:7.4.1-alpine3.20 
+    container_name: chapp_room_redis
+    hostname: chapp_room_redis
+    ports: 
+      - "6379:6379" 
+    volumes: 
+      - redis-data:/data
+  

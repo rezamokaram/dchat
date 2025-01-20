@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+option go_package = "github.com/RezaMokaram/chapp/api/pb";
+
+
+message UserSignUpRequest {
+    string first_name = 1 [json_name = "first_name"];
+    string last_name = 2 [json_name = "last_name"];
+    string username = 3 [json_name = "username"];
+}
+
+message UserSignUpResponse {
+    bool success = 1 [json_name = "success"];
+    string user_id = 2 [json_name = "user_id"];
+}
+
+message UserSignInRequest {
+    string username = 1 [json_name = "username"];
+}
+
+message UserSignInResponse {
+    bool success = 1 [json_name = "success"];
+    string user_id = 2 [json_name = "user_id"];
+}
+
+message User {
+    string id = 1;
+    string first_name = 2;
+    string last_name = 3;
+    string username = 4;
+}
+
+message CreateRoomRequest {
+    string user_id = 1 [json_name = "user_id"];
+    string room_name = 2 [json_name = "room_name"];
+}
+
+message CreateRoomResponse {
+    bool success = 1 [json_name = "success"];
+    string room_id = 2 [json_name = "room_id"];
+}
+
+service RoomService { 
+    rpc SignUpUser(UserSignUpRequest) returns (UserSignUpResponse);
+    rpc SignInUser(UserSignInRequest) returns (UserSignInResponse);
+    rpc CreateRoom(CreateRoomRequest) returns (CreateRoomResponse);
+}
