@@ -19,8 +19,14 @@ func RoomDomain2Storage(roomDomain domain.Room) *types.Room {
 
 func RoomStorage2Domain(room types.Room) *domain.Room {
 	roomDomain := &domain.Room{
-		ID: domain.RoomId(room.ID),
+		ID:    domain.RoomId(room.ID),
+		Users: make(map[domain.UserId]domain.User),
 	}
+
+	if room.Users == nil {
+		return roomDomain
+	}
+
 	for _, usr := range room.Users {
 		val := *UserStorage2Domain(usr)
 		roomDomain.Users[val.ID] = val

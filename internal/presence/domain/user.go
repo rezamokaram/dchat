@@ -10,15 +10,19 @@ type (
 	UserId uuid.UUID
 )
 type User struct {
-	ID UserId
-	RoomID RoomId
-	Status uint
+	ID        UserId
+	RoomID    RoomId
+	Status    uint
 	UpdatedAt time.Time
 }
 
 type UserFilter struct {
-	ID uuid.UUID
-	RoomID uuid.UUID
-	Status bool
+	ID        UserId
+	RoomID    RoomId
+	Status    bool
 	UpdatedAt time.Time
+}
+
+func (r UserId) ToString() string {
+	return uuid.UUID(r).String()
 }

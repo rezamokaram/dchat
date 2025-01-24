@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/RezaMokaram/chapp/api/handler/grpc"
+	grpc "github.com/RezaMokaram/chapp/api/handler/grpc/room"
 	"github.com/RezaMokaram/chapp/app/room"
 	"github.com/RezaMokaram/chapp/config"
 )

@@ -12,4 +12,3 @@ type User struct {
 	Status    uint      `json:"status,omitempty"`
 	UpdatedAt time.Time `json:"updated_at,omitempty"`
 }
-

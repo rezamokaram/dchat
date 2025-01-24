@@ -1,4 +1,4 @@
-package grpc
+package interceptors
 
 import (
 	"context"
@@ -16,10 +16,10 @@ import (
 )
 
 const (
-	svcContextKey = "svc"
+	SvcContextKey = "svc"
 )
 
-func contextUnaryInterceptor(
+func ContextUnaryInterceptor(
 	ctx context.Context,
 	req interface{},
 	info *grpc.UnaryServerInfo,
@@ -30,14 +30,21 @@ func contextUnaryInterceptor(
 	return handler(appCtx, req)
 }
 
-func setServiceGetterUnaryInterceptor(svc common.ServiceGetter[*service.RoomService]) grpc.UnaryServerInterceptor {
+func SetRoomServiceGetterUnaryInterceptor(svc common.ServiceGetter[*service.RoomService]) grpc.UnaryServerInterceptor {
 	return func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
-		withServiceCtx := context.WithValue(ctx, svcContextKey, svc)
+		withServiceCtx := context.WithValue(ctx, SvcContextKey, svc)
 		return handler(withServiceCtx, req)
 	}
 }
 
-func setTransactionUnaryInterceptor(appContainer room.RoomApp) grpc.UnaryServerInterceptor {
+func SetPresenceServiceGetterUnaryInterceptor(svc common.ServiceGetter[*service.PresenceService]) grpc.UnaryServerInterceptor {
+	return func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
+		withServiceCtx := context.WithValue(ctx, SvcContextKey, svc)
+		return handler(withServiceCtx, req)
+	}
+}
+
+func SetTransactionUnaryInterceptor(appContainer room.RoomApp) grpc.UnaryServerInterceptor {
 	return func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
 		tx := appContainer.DB().Begin()
 
@@ -56,7 +63,7 @@ func setTransactionUnaryInterceptor(appContainer room.RoomApp) grpc.UnaryServerI
 	}
 }
 
-func loggingUnaryInterceptor(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp interface{}, err error) {
+func LoggingUnaryInterceptor(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp interface{}, err error) {
 	resp, err = handler(ctx, req)
 	if err != nil {
 		log.Printf("Received request: %v - Error occurred: %v", req, err)
@@ -67,7 +74,7 @@ func loggingUnaryInterceptor(ctx context.Context, req interface{}, info *grpc.Un
 	return resp, err
 }
 
-func panicRecoveryInterceptor(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp interface{}, err error) {
+func PanicRecoveryInterceptor(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp interface{}, err error) {
 	defer func() {
 		if r := recover(); r != nil {
 			log.Printf("PANIC: %v\n%s", r, string(debug.Stack()))

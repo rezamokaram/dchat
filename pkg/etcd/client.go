@@ -6,7 +6,7 @@ import (
 	client "go.etcd.io/etcd/client/v3"
 )
 
-func NewEtcdConnection(endpoints []string) (*client.Client, error) {
+func NewEtcdClient(endpoints []string) (*client.Client, error) {
 	config := client.Config{
 		Endpoints:   endpoints,
 		DialTimeout: 5 * time.Second,
