@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+option go_package = "github.com/RezaMokaram/chapp/api/pb";
+
+message UserPresenceData {
+    string user_id = 1 [json_name = "user_id"];
+    string room_id = 2 [json_name = "room_id"];
+    uint32 status = 3 [json_name = "status"];
+    string updated_at = 4 [json_name = "updated_at"];
+}
+
+message RoomData {
+    string room_id = 1 [json_name = "room_id"];
+    repeated UserPresenceData users = 2 [json_name = "users"];
+}
+
+message SetUserPresenceRequest {
+    UserPresenceData user = 1 [json_name = "user"];
+}
+message SetUserPresenceResponse {
+    bool success = 1 [json_name = "success"];
+}
+
+message DeleteUserPresenceRequest {
+    string user_id = 1 [json_name = "user_id"];
+}
+message DeleteUserPresenceResponse {
+    bool success = 1 [json_name = "success"];
+}
+
+message GetUserPresenceRequest {
+    string user_id = 1 [json_name = "user_id"];
+}
+message GetUserPresenceResponse {
+    UserPresenceData user = 1 [json_name = "user"];
+}
+
+message GetUsersPresenceRequest {
+}
+message GetUsersPresenceResponse {
+    repeated UserPresenceData users = 1 [json_name = "users"];
+}
+
+message GetRoomPresenceDataRequest {
+    string room_id = 1 [json_name = "room_id"];
+}
+message GetRoomPresenceDataResponse {
+    RoomData room = 1 [json_name = "room"];
+}
+
+service PresenceService { 
+    rpc SetUserPresence(SetUserPresenceRequest) returns (SetUserPresenceResponse);
+    rpc DeleteUserPresence(DeleteUserPresenceRequest) returns (DeleteUserPresenceResponse);
+    rpc GetUserPresence(GetUserPresenceRequest) returns (GetUserPresenceResponse);
+    rpc GetUsersPresence(GetUsersPresenceRequest) returns (GetUsersPresenceResponse);
+    rpc GetRoomPresenceData(GetRoomPresenceDataRequest) returns (GetRoomPresenceDataResponse);
+}

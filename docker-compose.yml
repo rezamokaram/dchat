@@ -2,10 +2,12 @@ version: "3.8"
 
 volumes:
   db_data:
-    name: db_data
     driver: local
   
   redis-data: 
+    driver: local
+
+  etcd-data: 
     driver: local
 
 services:
@@ -37,3 +39,33 @@ services:
     volumes: 
       - redis-data:/data
   
+  etcd:
+    image: quay.io/coreos/etcd:v3.5.13
+    container_name: etcd
+    ports:
+      - "2379:2379"
+      - "2380:2380"
+    environment:
+      - ETCD_NAME=etcd
+      - ETCD_DATA_DIR=/etcd-data
+      - ETCD_INITIAL_ADVERTISE_PEER_URLS=http://etcd:2380
+      - ETCD_LISTEN_PEER_URLS=http://0.0.0.0:2380
+      - ETCD_ADVERTISE_CLIENT_URLS=http://etcd:2379
+      - ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379
+      - ETCD_INITIAL_CLUSTER=etcd=http://etcd:2380
+      - ETCD_INITIAL_CLUSTER_STATE=new
+      - ETCD_INITIAL_CLUSTER_TOKEN=etcd-single-node
+    volumes:
+      - etcd-data:/etcd-data
+
+  nats:
+    image: nats:2.10.22-scratch
+    container_name: nats
+    ports:
+      - "4222:4222"  # Client connections
+      - "6222:6222"  # Cluster connections
+      - "8222:8222"  # Monitoring
+    environment:
+      - NATS_CLUSTER_ADVERTISE=nats
+      - NATS_SERVER_NAME=nats-server
+      - NATS_MONITORING_PORT=8222

@@ -1,10 +1,11 @@
-package grpc
+package room
 
 import (
 	"fmt"
 	"log"
 	"net"
 
+	"github.com/RezaMokaram/chapp/api/handler/grpc/interceptors"
 	"github.com/RezaMokaram/chapp/api/pb"
 	"github.com/RezaMokaram/chapp/app/room"
 	"github.com/RezaMokaram/chapp/config"
@@ -19,11 +20,11 @@ func Run(appContainer room.RoomApp, cfg config.RoomConfig) error {
 
 	s := grpc.NewServer(
 		grpc.ChainUnaryInterceptor(
-			contextUnaryInterceptor,
-			setTransactionUnaryInterceptor(appContainer),
-			setServiceGetterUnaryInterceptor(roomServiceGetter(appContainer, cfg)),
-			loggingUnaryInterceptor,
-			panicRecoveryInterceptor,
+			interceptors.ContextUnaryInterceptor,
+			interceptors.SetTransactionUnaryInterceptor(appContainer),
+			interceptors.SetRoomServiceGetterUnaryInterceptor(roomServiceGetter(appContainer)),
+			interceptors.LoggingUnaryInterceptor,
+			interceptors.PanicRecoveryInterceptor,
 		),
 	)
 

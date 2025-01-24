@@ -15,3 +15,8 @@ type REDIS struct {
 	Host string `env-required:"false" json:"host" env:"CHAPP_REDIS_HOST"`
 	Port uint   `env-required:"false" json:"port" env:"CHAPP_REDIS_PORT"`
 }
+
+type ETCD struct {
+	Hosts []string `env-required:"false" json:"hosts" env:"CHAPP_ETCD_HOST"`
+	TTL int64 `env-required:"false" json:"ttl" env:"CHAPP_ETCD_TTL"`
+}
