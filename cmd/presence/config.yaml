@@ -1,0 +1,10 @@
+presence:
+  name: chapp_presence_app
+  version: 0.0.1
+  host: 0.0.0.0
+  port: 8888
+
+etcd:
+  hosts:
+    - http://localhost:2379
+  ttl: 10

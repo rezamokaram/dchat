@@ -1,0 +1,123 @@
+version: "3.8"
+
+volumes:
+  db_data:
+    driver: local
+  
+  redis-data: 
+    driver: local
+
+  etcd-data: 
+    driver: local
+
+services:
+  postgres:
+    image: postgres:17.2-alpine3.21
+    container_name: chapp_room_postgres
+    hostname: chapp_room_postgres
+    restart: always
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=${CHAPP_POSTGRES_DB}
+      - POSTGRES_USER=${CHAPP_POSTGRES_USER}
+      - POSTGRES_PASSWORD=${CHAPP_POSTGRES_PASSWORD}
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-q", "-d", "${POSTGRES_DB}", "-U", "${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  
+  redis: 
+    image: redis:7.4.1-alpine3.20 
+    container_name: chapp_room_redis
+    hostname: chapp_room_redis
+    ports: 
+      - "6379:6379" 
+    volumes: 
+      - redis-data:/data
+  
+  etcd:
+    image: quay.io/coreos/etcd:v3.5.13
+    container_name: chapp_presence_etcd
+    hostname: chapp_presence_etcd
+    ports:
+      - "2379:2379"
+      - "2380:2380"
+    environment:
+      - ETCD_NAME=etcd
+      - ETCD_DATA_DIR=/etcd-data
+      - ETCD_INITIAL_ADVERTISE_PEER_URLS=http://etcd:2380
+      - ETCD_LISTEN_PEER_URLS=http://0.0.0.0:2380
+      - ETCD_ADVERTISE_CLIENT_URLS=http://etcd:2379
+      - ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379
+      - ETCD_INITIAL_CLUSTER=etcd=http://etcd:2380
+      - ETCD_INITIAL_CLUSTER_STATE=new
+      - ETCD_INITIAL_CLUSTER_TOKEN=etcd-single-node
+    volumes:
+      - etcd-data:/etcd-data
+
+  nats:
+    image: nats:2.10.22-scratch
+    container_name: chapp_chat_nats
+    hostname: chapp_chat_nats
+    ports:
+      - "4222:4222"
+      - "8222:8222"
+
+  chapp_room_app:
+    build:
+      context: .
+      dockerfile: ./build/Dockerfile.room
+    pull_policy: never
+    image: chapp_room_app
+    container_name: chapp_room_app
+    hostname: chapp_room_app
+    restart: always
+    environment:
+      - CHAPP_POSTGRES_HOST=chapp_room_postgres
+      - CHAPP_REDIS_HOST=chapp_room_redis
+    ports:
+      - "8088:8088"
+    depends_on:
+      - postgres
+      - redis
+
+
+  chapp_chat_app:
+    build:
+      context: .
+      dockerfile: ./build/Dockerfile.chat
+    pull_policy: never
+    image: chapp_chat_app
+    container_name: chapp_chat_app
+    hostname: chapp_chat_app
+    restart: always
+    environment:
+      - CHAPP_NATS_HOST=nats://chapp_chat_nats:4222
+      - CHAPP_CHAT_APP_PRESENCE_HOST=chapp_presence_app
+      - CHAPP_CHAT_APP_PRESENCE_PORT=8888
+    ports:
+      - "8008:8008"
+    depends_on:
+      - nats
+
+
+  chapp_presence_app:
+    build:
+      context: .
+      dockerfile: ./build/Dockerfile.presence
+    pull_policy: never
+    image: chapp_presence_app
+    container_name: chapp_presence_app
+    hostname: chapp_presence_app
+    restart: always
+    environment:
+      - CHAPP_ETCD_HOST=http://chapp_presence_etcd:2379
+    ports:
+      - "8080:8080"
+    depends_on:
+      - etcd
+        
