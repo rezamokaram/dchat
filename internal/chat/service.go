@@ -22,8 +22,8 @@ type service struct {
 
 func NewService(cfg config.ChatConfig, pubsub port.Pubsub, prClient port.PresenceClient) port.Service {
 	return &service{
-		cfg:    cfg,
-		pubsub: pubsub,
+		cfg:      cfg,
+		pubsub:   pubsub,
 		prClient: prClient,
 	}
 }

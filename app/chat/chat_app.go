@@ -13,8 +13,8 @@ import (
 )
 
 type app struct {
-	cfg config.ChatConfig
-	nc  *nats.Conn
+	cfg      config.ChatConfig
+	nc       *nats.Conn
 	prClient chatPort.PresenceClient
 }
 
@@ -29,7 +29,7 @@ func NewApp(cfg config.ChatConfig) (ChatApp, error) {
 		return nil, err
 	}
 
-	app.prClient, err = presence_client.NewPresenceClient(cfg.Chat.Phost +":" + cfg.Chat.Pport)
+	app.prClient, err = presence_client.NewPresenceClient(cfg.Chat.Phost + ":" + cfg.Chat.Pport)
 	if err != nil {
 		return nil, err
 	}

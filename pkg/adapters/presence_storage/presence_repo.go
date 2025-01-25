@@ -23,23 +23,20 @@ var (
 )
 
 type presenceRepo struct {
-	etcd *client.Client
-	ttl  int64
+	etcd    *client.Client
+	ttl     int64
 	session *concurrency.Session
 }
 
 func NewPresenceRepo(etcd *client.Client, ttl int64) port.Repo {
 	session, err := concurrency.NewSession(etcd)
 	if err != nil {
-		log.Println("can not create the session: %v", err)
+		log.Printf("can not create the session: %v\n", err)
 	}
 
-	// Create a mutex for the lock
-	// mutex := concurrency.NewMutex(session, "/my-lock")
-
 	return &presenceRepo{
-		etcd: etcd,
-		ttl:  ttl,
+		etcd:    etcd,
+		ttl:     ttl,
 		session: session,
 	}
 }
