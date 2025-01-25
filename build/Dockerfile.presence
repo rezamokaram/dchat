@@ -1,0 +1,16 @@
+# Build Stage
+FROM golang:1.22.1 AS BuildStage
+WORKDIR /app
+COPY go.mod .
+COPY go.sum .
+RUN go mod download
+COPY . .
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o ./cmd/presence/app ./cmd/presence/main.go
+
+# Deploy Stage
+FROM scratch
+WORKDIR /app
+COPY --from=BuildStage /app/cmd/presence/app .
+COPY --from=BuildStage /app/cmd/presence/config.yaml ./cmd/presence/
+EXPOSE 8888
+ENTRYPOINT ["./app"]

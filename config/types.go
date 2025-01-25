@@ -18,5 +18,9 @@ type REDIS struct {
 
 type ETCD struct {
 	Hosts []string `env-required:"false" json:"hosts" env:"CHAPP_ETCD_HOST"`
-	TTL int64 `env-required:"false" json:"ttl" env:"CHAPP_ETCD_TTL"`
+	TTL   int64    `env-required:"false" json:"ttl" env:"CHAPP_ETCD_TTL"`
+}
+
+type NATS struct {
+	Host string `env-required:"false" json:"host" env:"CHAPP_NATS_HOST"`
 }

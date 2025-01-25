@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option go_package = "github.com/RezaMokaram/chapp/api/pb";
+
+service ChatService {
+  rpc StreamMessages(stream ChatStreamRequest) returns (stream ChatStreamResponse);
+}
+
+message ChatStreamRequest {
+  string user_id = 1;
+  string room_id = 2;
+  string content = 3;
+  bool filled = 4;
+}
+
+message ChatStreamResponse {
+  string user_id = 1;
+  string room_id = 2;
+  string content = 3;
+  bool filled = 4;
+  uint64 remain = 5;
+  string error = 6;
+}
