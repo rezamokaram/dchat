@@ -13,6 +13,7 @@ import (
 	"github.com/RezaMokaram/chapp/pkg/adapters/presence_storage/types"
 	"github.com/google/uuid"
 	client "go.etcd.io/etcd/client/v3"
+	"go.etcd.io/etcd/client/v3/concurrency"
 )
 
 var (
@@ -24,18 +25,33 @@ var (
 type presenceRepo struct {
 	etcd *client.Client
 	ttl  int64
+	session *concurrency.Session
 }
 
 func NewPresenceRepo(etcd *client.Client, ttl int64) port.Repo {
+	session, err := concurrency.NewSession(etcd)
+	if err != nil {
+		log.Println("can not create the session: %v", err)
+	}
+
+	// Create a mutex for the lock
+	// mutex := concurrency.NewMutex(session, "/my-lock")
+
 	return &presenceRepo{
 		etcd: etcd,
 		ttl:  ttl,
+		session: session,
 	}
 }
 
 func (pr *presenceRepo) SetUserPresence(ctx context.Context, userDomain domain.User) error {
 	ctxWithTimeOut, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
+	mutex, err := pr.lock(ctxWithTimeOut, userDomain.RoomID.ToString())
+	if err != nil {
+		return err
+	}
+	defer pr.unlock(ctxWithTimeOut, mutex)
 
 	user := mappers.UserDomain2Storage(userDomain)
 	user.Status = 1
@@ -91,6 +107,11 @@ func (pr *presenceRepo) SetUserPresence(ctx context.Context, userDomain domain.U
 func (pr *presenceRepo) DeleteUserPresence(ctx context.Context, userDomainId domain.UserId) error {
 	ctxWithTimeOut, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
+	mutex, err := pr.lock(ctxWithTimeOut, userDomainId.ToString())
+	if err != nil {
+		return err
+	}
+	defer pr.unlock(ctxWithTimeOut, mutex)
 
 	resp, err := pr.etcd.Get(ctxWithTimeOut, getUserKey(uuid.UUID(userDomainId)))
 	if err != nil {
@@ -145,6 +166,11 @@ func (pr *presenceRepo) DeleteUserPresence(ctx context.Context, userDomainId dom
 func (pr *presenceRepo) GetUsersByFilter(ctx context.Context, filter domain.UserFilter) ([]domain.User, error) {
 	ctxWithTimeOut, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
+	mutex, err := pr.lock(ctxWithTimeOut, filter.ID.ToString())
+	if err != nil {
+		return nil, err
+	}
+	defer pr.unlock(ctxWithTimeOut, mutex)
 
 	prefix := getUserKey(uuid.UUID(filter.ID))
 	resp, err := pr.etcd.Get(ctxWithTimeOut, prefix, client.WithPrefix())
@@ -171,6 +197,11 @@ func (pr *presenceRepo) GetUsersByFilter(ctx context.Context, filter domain.User
 func (pr *presenceRepo) GetRoomByFilter(ctx context.Context, filter domain.RoomFilter) (*domain.Room, error) {
 	ctxWithTimeOut, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
+	mutex, err := pr.lock(ctxWithTimeOut, filter.ID.ToString())
+	if err != nil {
+		return nil, err
+	}
+	defer pr.unlock(ctxWithTimeOut, mutex)
 
 	resp, err := pr.etcd.Get(ctxWithTimeOut, getRoomKey(uuid.UUID(filter.ID)))
 	if err != nil {
@@ -187,4 +218,18 @@ func (pr *presenceRepo) GetRoomByFilter(ctx context.Context, filter domain.RoomF
 		return nil, err
 	}
 	return mappers.RoomStorage2Domain(room), nil
+}
+
+func (pr *presenceRepo) lock(ctx context.Context, key string) (*concurrency.Mutex, error) {
+	mutex := concurrency.NewMutex(pr.session, key)
+	if err := mutex.Lock(ctx); err != nil {
+		return nil, err
+	}
+	return mutex, nil
+}
+
+func (pr *presenceRepo) unlock(ctx context.Context, mutex *concurrency.Mutex) {
+	if err := mutex.Unlock(ctx); err != nil {
+		log.Printf("error in unlocking th lock: %v", err)
+	}
 }
