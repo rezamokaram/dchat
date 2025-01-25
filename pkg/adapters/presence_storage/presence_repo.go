@@ -23,13 +23,13 @@ var (
 
 type presenceRepo struct {
 	etcd *client.Client
-	ttl int64
+	ttl  int64
 }
 
 func NewPresenceRepo(etcd *client.Client, ttl int64) port.Repo {
 	return &presenceRepo{
 		etcd: etcd,
-		ttl: ttl,
+		ttl:  ttl,
 	}
 }
 
