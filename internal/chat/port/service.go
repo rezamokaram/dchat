@@ -8,5 +8,5 @@ import (
 
 type Service interface {
 	Send(ctx context.Context, message domain.Message) error
-	Receiver(ctx context.Context, roomId domain.RoomId, uesrId domain.UserId) (<-chan domain.Message, error)
+	Receiver(ctx context.Context, roomId domain.RoomId, userId domain.UserId) (<-chan domain.Message, error)
 }

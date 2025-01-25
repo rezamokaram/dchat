@@ -79,6 +79,8 @@ services:
     environment:
       - CHAPP_POSTGRES_HOST=chapp_room_postgres
       - CHAPP_REDIS_HOST=chapp_room_redis
+    ports:
+      - "8088:8088"
     depends_on:
       - postgres
       - redis
@@ -95,6 +97,10 @@ services:
     restart: always
     environment:
       - CHAPP_NATS_HOST=nats://chapp_chat_nats:4222
+      - CHAPP_CHAT_APP_PRESENCE_HOST=chapp_presence_app
+      - CHAPP_CHAT_APP_PRESENCE_PORT=8888
+    ports:
+      - "8008:8008"
     depends_on:
       - nats
 
@@ -110,6 +116,8 @@ services:
     restart: always
     environment:
       - CHAPP_ETCD_HOST=http://chapp_presence_etcd:2379
+    ports:
+      - "8080:8080"
     depends_on:
       - etcd
         

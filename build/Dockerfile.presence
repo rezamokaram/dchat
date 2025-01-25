@@ -12,5 +12,5 @@ FROM scratch
 WORKDIR /app
 COPY --from=BuildStage /app/cmd/presence/app .
 COPY --from=BuildStage /app/cmd/presence/config.yaml ./cmd/presence/
-EXPOSE 8080
+EXPOSE 8888
 ENTRYPOINT ["./app"]

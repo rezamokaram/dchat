@@ -29,7 +29,7 @@ func MessageSubscriber2Domain(msg types.Message) (*domain.Message, error) {
 
 func MessageDomain2Publisher(domainMsg domain.Message) (*types.Message, error) {
 	return &types.Message{
-		UserId:  domainMsg.RoomId.ToString(),
+		UserId:  domainMsg.UserId.ToString(),
 		RoomId:  domainMsg.RoomId.ToString(),
 		Content: domainMsg.Content,
 	}, nil
