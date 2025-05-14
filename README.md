@@ -1,4 +1,4 @@
-# chapp
+# dchat
 distributed chat system  
 this repo is private  
 
