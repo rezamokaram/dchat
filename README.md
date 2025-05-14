@@ -15,7 +15,7 @@ there are 5 services:
 5. **message service**: messages after chat should save in message service for later (if anyone wants to load messages)
 i want to use a kv store with high capabilities for clustering and IO (my choice is scylla db) (does not implemented) ("Sorry, I don’t have the time to do that") 
 
-![architecture](github.com/RezaMokaram/chapp/blob/main/docs/arch.png "architecture")
+![architecture](github.com/RezaMokaram/chapp/blob/main/docs/arch.png)
 
 ## How to use
   
