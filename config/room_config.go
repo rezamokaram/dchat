@@ -9,8 +9,8 @@ type RoomConfig struct {
 func (RoomConfig) configSignature() {}
 
 type ROOM struct {
-	Name    string `env-required:"false" json:"name" env:"CHAPP_APP_NAME"`
-	Version string `env-required:"false" json:"version" env:"CHAPP_APP_VERSION"`
-	Host    string `env-required:"false" json:"host" env:"CHAPP_APP_HOST"`
-	Port    uint   `env-required:"false" json:"port" env:"CHAPP_APP_PORT"`
+	Name    string `env-required:"false" json:"name" env:"dchat_APP_NAME"`
+	Version string `env-required:"false" json:"version" env:"dchat_APP_VERSION"`
+	Host    string `env-required:"false" json:"host" env:"dchat_APP_HOST"`
+	Port    uint   `env-required:"false" json:"port" env:"dchat_APP_PORT"`
 }

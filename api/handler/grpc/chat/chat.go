@@ -3,8 +3,8 @@ package chat
 import (
 	"context"
 
-	"github.com/RezaMokaram/chapp/api/pb"
-	"github.com/RezaMokaram/chapp/app/chat"
+	"github.com/rezamokaram/dchat/api/pb"
+	"github.com/rezamokaram/dchat/app/chat"
 )
 
 type chatServer struct {

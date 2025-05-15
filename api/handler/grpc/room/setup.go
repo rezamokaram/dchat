@@ -5,10 +5,10 @@ import (
 	"log"
 	"net"
 
-	"github.com/RezaMokaram/chapp/api/handler/grpc/interceptors"
-	"github.com/RezaMokaram/chapp/api/pb"
-	"github.com/RezaMokaram/chapp/app/room"
-	"github.com/RezaMokaram/chapp/config"
+	"github.com/rezamokaram/dchat/api/handler/grpc/interceptors"
+	"github.com/rezamokaram/dchat/api/pb"
+	"github.com/rezamokaram/dchat/app/room"
+	"github.com/rezamokaram/dchat/config"
 	"google.golang.org/grpc"
 )
 

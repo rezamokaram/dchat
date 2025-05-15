@@ -4,9 +4,9 @@ import (
 	"context"
 	// "log"
 
-	"github.com/RezaMokaram/chapp/api/handler/common"
-	"github.com/RezaMokaram/chapp/api/service"
-	app "github.com/RezaMokaram/chapp/app/room"
+	"github.com/rezamokaram/dchat/api/handler/common"
+	"github.com/rezamokaram/dchat/api/service"
+	app "github.com/rezamokaram/dchat/app/room"
 )
 
 func roomServiceGetter(appContainer app.RoomApp) common.ServiceGetter[*service.RoomService] {

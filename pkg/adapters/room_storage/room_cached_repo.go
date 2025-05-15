@@ -4,9 +4,9 @@ import (
 	"context"
 	"log"
 
-	"github.com/RezaMokaram/chapp/internal/room/domain"
-	roomPort "github.com/RezaMokaram/chapp/internal/room/port"
-	"github.com/RezaMokaram/chapp/pkg/cache"
+	"github.com/rezamokaram/dchat/internal/room/domain"
+	roomPort "github.com/rezamokaram/dchat/internal/room/port"
+	"github.com/rezamokaram/dchat/pkg/cache"
 )
 
 type roomCachedRepo struct {

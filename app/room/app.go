@@ -4,23 +4,23 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/RezaMokaram/chapp/config"
-	"github.com/RezaMokaram/chapp/internal/room"
-	roomPort "github.com/RezaMokaram/chapp/internal/room/port"
-	"github.com/RezaMokaram/chapp/internal/user"
-	userPort "github.com/RezaMokaram/chapp/internal/user/port"
-	storage "github.com/RezaMokaram/chapp/pkg/adapters/room_storage"
-	"github.com/RezaMokaram/chapp/pkg/adapters/room_storage/types"
-	"github.com/RezaMokaram/chapp/pkg/cache"
-	"github.com/RezaMokaram/chapp/pkg/postgres"
+	"github.com/rezamokaram/dchat/config"
+	"github.com/rezamokaram/dchat/internal/room"
+	roomPort "github.com/rezamokaram/dchat/internal/room/port"
+	"github.com/rezamokaram/dchat/internal/user"
+	userPort "github.com/rezamokaram/dchat/internal/user/port"
+	storage "github.com/rezamokaram/dchat/pkg/adapters/room_storage"
+	"github.com/rezamokaram/dchat/pkg/adapters/room_storage/types"
+	"github.com/rezamokaram/dchat/pkg/cache"
+	"github.com/rezamokaram/dchat/pkg/postgres"
 
 	// "github.com/go-co-op/gocron/v2"
 
-	redisAdapter "github.com/RezaMokaram/chapp/pkg/adapters/cache"
+	redisAdapter "github.com/rezamokaram/dchat/pkg/adapters/cache"
 
 	"gorm.io/gorm"
 
-	appCtx "github.com/RezaMokaram/chapp/pkg/context"
+	appCtx "github.com/rezamokaram/dchat/pkg/context"
 )
 
 type app struct {

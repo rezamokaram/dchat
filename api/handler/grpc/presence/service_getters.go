@@ -3,9 +3,9 @@ package presence
 import (
 	"context"
 
-	"github.com/RezaMokaram/chapp/api/handler/common"
-	"github.com/RezaMokaram/chapp/api/service"
-	app "github.com/RezaMokaram/chapp/app/presence"
+	"github.com/rezamokaram/dchat/api/handler/common"
+	"github.com/rezamokaram/dchat/api/service"
+	app "github.com/rezamokaram/dchat/app/presence"
 )
 
 func presenceServiceGetter(appContainer app.PresenceApp) common.ServiceGetter[*service.PresenceService] {

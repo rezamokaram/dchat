@@ -6,11 +6,11 @@ import (
 	"errors"
 	"log"
 
-	"github.com/RezaMokaram/chapp/internal/chat/domain"
-	"github.com/RezaMokaram/chapp/internal/chat/port"
-	"github.com/RezaMokaram/chapp/pkg/adapters/pubsub/mappers"
-	"github.com/RezaMokaram/chapp/pkg/adapters/pubsub/types"
 	"github.com/nats-io/nats.go"
+	"github.com/rezamokaram/dchat/internal/chat/domain"
+	"github.com/rezamokaram/dchat/internal/chat/port"
+	"github.com/rezamokaram/dchat/pkg/adapters/pubsub/mappers"
+	"github.com/rezamokaram/dchat/pkg/adapters/pubsub/types"
 )
 
 var (

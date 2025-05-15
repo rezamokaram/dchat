@@ -3,9 +3,9 @@ package room
 import (
 	"context"
 
-	"github.com/RezaMokaram/chapp/config"
-	roomPort "github.com/RezaMokaram/chapp/internal/room/port"
-	userPort "github.com/RezaMokaram/chapp/internal/user/port"
+	"github.com/rezamokaram/dchat/config"
+	roomPort "github.com/rezamokaram/dchat/internal/room/port"
+	userPort "github.com/rezamokaram/dchat/internal/user/port"
 
 	"gorm.io/gorm"
 )

@@ -7,11 +7,11 @@ import (
 	"log"
 	"time"
 
-	"github.com/RezaMokaram/chapp/internal/presence/domain"
-	"github.com/RezaMokaram/chapp/internal/presence/port"
-	"github.com/RezaMokaram/chapp/pkg/adapters/presence_storage/mappers"
-	"github.com/RezaMokaram/chapp/pkg/adapters/presence_storage/types"
 	"github.com/google/uuid"
+	"github.com/rezamokaram/dchat/internal/presence/domain"
+	"github.com/rezamokaram/dchat/internal/presence/port"
+	"github.com/rezamokaram/dchat/pkg/adapters/presence_storage/mappers"
+	"github.com/rezamokaram/dchat/pkg/adapters/presence_storage/types"
 	client "go.etcd.io/etcd/client/v3"
 	"go.etcd.io/etcd/client/v3/concurrency"
 )

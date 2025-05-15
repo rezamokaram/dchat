@@ -4,9 +4,9 @@ import (
 	"flag"
 	"log"
 
-	grpc "github.com/RezaMokaram/chapp/api/handler/grpc/chat"
-	"github.com/RezaMokaram/chapp/app/chat"
-	"github.com/RezaMokaram/chapp/config"
+	grpc "github.com/rezamokaram/dchat/api/handler/grpc/chat"
+	"github.com/rezamokaram/dchat/app/chat"
+	"github.com/rezamokaram/dchat/config"
 )
 
 func main() {

@@ -4,9 +4,9 @@ import (
 	"context"
 	"log"
 
-	"github.com/RezaMokaram/chapp/internal/user/domain"
-	userPort "github.com/RezaMokaram/chapp/internal/user/port"
-	"github.com/RezaMokaram/chapp/pkg/cache"
+	"github.com/rezamokaram/dchat/internal/user/domain"
+	userPort "github.com/rezamokaram/dchat/internal/user/port"
+	"github.com/rezamokaram/dchat/pkg/cache"
 )
 
 type userCachedRepo struct {

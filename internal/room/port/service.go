@@ -3,7 +3,7 @@ package port
 import (
 	"context"
 
-	"github.com/RezaMokaram/chapp/internal/room/domain"
+	"github.com/rezamokaram/dchat/internal/room/domain"
 )
 
 type Service interface {

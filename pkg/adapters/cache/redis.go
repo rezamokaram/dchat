@@ -5,7 +5,7 @@ import (
 	"errors"
 	"time"
 
-	c "github.com/RezaMokaram/chapp/pkg/cache"
+	c "github.com/rezamokaram/dchat/pkg/cache"
 
 	"github.com/redis/go-redis/v9"
 )

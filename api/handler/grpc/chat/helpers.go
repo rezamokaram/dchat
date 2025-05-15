@@ -5,9 +5,9 @@ import (
 	"log"
 	"runtime/debug"
 
-	"github.com/RezaMokaram/chapp/api/pb"
-	"github.com/RezaMokaram/chapp/internal/chat/domain"
 	"github.com/google/uuid"
+	"github.com/rezamokaram/dchat/api/pb"
+	"github.com/rezamokaram/dchat/internal/chat/domain"
 	// "google.golang.org/grpc/codes"
 	// "google.golang.org/grpc/internal/status"
 )

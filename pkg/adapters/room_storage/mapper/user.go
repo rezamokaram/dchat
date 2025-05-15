@@ -1,9 +1,9 @@
 package mapper
 
 import (
-	"github.com/RezaMokaram/chapp/internal/user/domain"
-	"github.com/RezaMokaram/chapp/pkg/adapters/room_storage/types"
 	"github.com/google/uuid"
+	"github.com/rezamokaram/dchat/internal/user/domain"
+	"github.com/rezamokaram/dchat/pkg/adapters/room_storage/types"
 )
 
 func UserDomain2Storage(userDomain domain.User) *types.User {

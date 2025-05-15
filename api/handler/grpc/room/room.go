@@ -4,11 +4,11 @@ import (
 	"context"
 	"errors"
 
-	"github.com/RezaMokaram/chapp/api/handler/common"
-	"github.com/RezaMokaram/chapp/api/handler/grpc/interceptors"
-	"github.com/RezaMokaram/chapp/api/pb"
-	"github.com/RezaMokaram/chapp/api/service"
-	"github.com/RezaMokaram/chapp/app/room"
+	"github.com/rezamokaram/dchat/api/handler/common"
+	"github.com/rezamokaram/dchat/api/handler/grpc/interceptors"
+	"github.com/rezamokaram/dchat/api/pb"
+	"github.com/rezamokaram/dchat/api/service"
+	"github.com/rezamokaram/dchat/app/room"
 )
 
 type roomServer struct {

@@ -4,8 +4,8 @@ import (
 	"context"
 	"time"
 
-	"github.com/RezaMokaram/chapp/api/pb"
-	"github.com/RezaMokaram/chapp/internal/chat/port"
+	"github.com/rezamokaram/dchat/api/pb"
+	"github.com/rezamokaram/dchat/internal/chat/port"
 	"google.golang.org/grpc"
 )
 

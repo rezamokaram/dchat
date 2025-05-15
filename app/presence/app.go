@@ -3,11 +3,11 @@ package presence
 import (
 	"context"
 
-	"github.com/RezaMokaram/chapp/config"
-	"github.com/RezaMokaram/chapp/internal/presence"
-	presencePort "github.com/RezaMokaram/chapp/internal/presence/port"
-	storage "github.com/RezaMokaram/chapp/pkg/adapters/presence_storage"
-	"github.com/RezaMokaram/chapp/pkg/etcd"
+	"github.com/rezamokaram/dchat/config"
+	"github.com/rezamokaram/dchat/internal/presence"
+	presencePort "github.com/rezamokaram/dchat/internal/presence/port"
+	storage "github.com/rezamokaram/dchat/pkg/adapters/presence_storage"
+	"github.com/rezamokaram/dchat/pkg/etcd"
 	client "go.etcd.io/etcd/client/v3"
 )
 

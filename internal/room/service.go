@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/RezaMokaram/chapp/internal/room/domain"
-	"github.com/RezaMokaram/chapp/internal/room/port"
+	"github.com/rezamokaram/dchat/internal/room/domain"
+	"github.com/rezamokaram/dchat/internal/room/port"
 )
 
 var (

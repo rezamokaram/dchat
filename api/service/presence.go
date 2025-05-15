@@ -5,10 +5,10 @@ import (
 	"errors"
 	"time"
 
-	"github.com/RezaMokaram/chapp/api/pb"
-	"github.com/RezaMokaram/chapp/internal/presence/domain"
-	presencePort "github.com/RezaMokaram/chapp/internal/presence/port"
 	"github.com/google/uuid"
+	"github.com/rezamokaram/dchat/api/pb"
+	"github.com/rezamokaram/dchat/internal/presence/domain"
+	presencePort "github.com/rezamokaram/dchat/internal/presence/port"
 )
 
 type PresenceService struct {

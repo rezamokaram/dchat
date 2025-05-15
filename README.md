@@ -8,7 +8,7 @@ sudo docker compose up
   
 ## Architecture
 there are 5 services:
-1. **chappctl**: cli of project (does not implemented) ("Sorry, I don’t have the time to do that")  
+1. **dchatctl**: cli of project (does not implemented) ("Sorry, I don’t have the time to do that")  
 2. **presence service**: control user session snd room session using a distributed in-memory kv store and distributed locks (i choose ETCD)  
 3. **room service**: traditional APIes using grpc, postgres & redis for cache  
 4. **chat service**: handles the user live connection using gRPC bidirectional streaming  

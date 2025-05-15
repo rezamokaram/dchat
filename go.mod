@@ -1,4 +1,4 @@
-module github.com/RezaMokaram/chapp
+module github.com/rezamokaram/dchat
 
 go 1.22.0
 

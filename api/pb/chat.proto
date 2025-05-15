@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "github.com/RezaMokaram/chapp/api/pb";
+option go_package = "github.com/rezamokaram/dchat/api/pb";
 
 service ChatService {
   rpc StreamMessages(stream ChatStreamRequest) returns (stream ChatStreamResponse);

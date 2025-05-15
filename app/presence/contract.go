@@ -3,8 +3,8 @@ package presence
 import (
 	"context"
 
-	"github.com/RezaMokaram/chapp/config"
-	presencePort "github.com/RezaMokaram/chapp/internal/presence/port"
+	"github.com/rezamokaram/dchat/config"
+	presencePort "github.com/rezamokaram/dchat/internal/presence/port"
 	client "go.etcd.io/etcd/client/v3"
 )
 

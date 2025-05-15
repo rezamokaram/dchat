@@ -5,9 +5,9 @@ import (
 	"errors"
 	"log"
 
-	"github.com/RezaMokaram/chapp/config"
-	"github.com/RezaMokaram/chapp/internal/chat/domain"
-	"github.com/RezaMokaram/chapp/internal/chat/port"
+	"github.com/rezamokaram/dchat/config"
+	"github.com/rezamokaram/dchat/internal/chat/domain"
+	"github.com/rezamokaram/dchat/internal/chat/port"
 )
 
 var (

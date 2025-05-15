@@ -4,8 +4,8 @@ import (
 	"context"
 	"errors"
 
-	"github.com/RezaMokaram/chapp/internal/presence/domain"
-	"github.com/RezaMokaram/chapp/internal/presence/port"
+	"github.com/rezamokaram/dchat/internal/presence/domain"
+	"github.com/rezamokaram/dchat/internal/presence/port"
 )
 
 var (

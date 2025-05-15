@@ -4,9 +4,9 @@ import (
 	"flag"
 	"log"
 
-	grpc "github.com/RezaMokaram/chapp/api/handler/grpc/presence"
-	"github.com/RezaMokaram/chapp/app/presence"
-	"github.com/RezaMokaram/chapp/config"
+	grpc "github.com/rezamokaram/dchat/api/handler/grpc/presence"
+	"github.com/rezamokaram/dchat/app/presence"
+	"github.com/rezamokaram/dchat/config"
 )
 
 func main() {

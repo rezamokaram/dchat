@@ -3,9 +3,9 @@ package mappers
 import (
 	"log"
 
-	"github.com/RezaMokaram/chapp/internal/presence/domain"
-	"github.com/RezaMokaram/chapp/pkg/adapters/presence_storage/types"
 	"github.com/google/uuid"
+	"github.com/rezamokaram/dchat/internal/presence/domain"
+	"github.com/rezamokaram/dchat/pkg/adapters/presence_storage/types"
 )
 
 func UserDomain2Storage(userDomain domain.User) *types.User {

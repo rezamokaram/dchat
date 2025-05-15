@@ -13,15 +13,15 @@ volumes:
 services:
   postgres:
     image: postgres:17.2-alpine3.21
-    container_name: chapp_room_postgres
-    hostname: chapp_room_postgres
+    container_name: dchat_room_postgres
+    hostname: dchat_room_postgres
     restart: always
     volumes:
       - db_data:/var/lib/postgresql/data
     environment:
-      - POSTGRES_DB=${CHAPP_POSTGRES_DB}
-      - POSTGRES_USER=${CHAPP_POSTGRES_USER}
-      - POSTGRES_PASSWORD=${CHAPP_POSTGRES_PASSWORD}
+      - POSTGRES_DB=${dchat_POSTGRES_DB}
+      - POSTGRES_USER=${dchat_POSTGRES_USER}
+      - POSTGRES_PASSWORD=${dchat_POSTGRES_PASSWORD}
     ports:
       - "5432:5432"
     healthcheck:
@@ -32,8 +32,8 @@ services:
   
   redis: 
     image: redis:7.4.1-alpine3.20 
-    container_name: chapp_room_redis
-    hostname: chapp_room_redis
+    container_name: dchat_room_redis
+    hostname: dchat_room_redis
     ports: 
       - "6379:6379" 
     volumes: 
@@ -41,8 +41,8 @@ services:
   
   etcd:
     image: quay.io/coreos/etcd:v3.5.13
-    container_name: chapp_presence_etcd
-    hostname: chapp_presence_etcd
+    container_name: dchat_presence_etcd
+    hostname: dchat_presence_etcd
     ports:
       - "2379:2379"
       - "2380:2380"
@@ -61,24 +61,24 @@ services:
 
   nats:
     image: nats:2.10.22-scratch
-    container_name: chapp_chat_nats
-    hostname: chapp_chat_nats
+    container_name: dchat_chat_nats
+    hostname: dchat_chat_nats
     ports:
       - "4222:4222"
       - "8222:8222"
 
-  chapp_room_app:
+  dchat_room_app:
     build:
       context: .
       dockerfile: ./build/Dockerfile.room
     pull_policy: never
-    image: chapp_room_app
-    container_name: chapp_room_app
-    hostname: chapp_room_app
+    image: dchat_room_app
+    container_name: dchat_room_app
+    hostname: dchat_room_app
     restart: always
     environment:
-      - CHAPP_POSTGRES_HOST=chapp_room_postgres
-      - CHAPP_REDIS_HOST=chapp_room_redis
+      - dchat_POSTGRES_HOST=dchat_room_postgres
+      - dchat_REDIS_HOST=dchat_room_redis
     ports:
       - "8088:8088"
     depends_on:
@@ -86,36 +86,36 @@ services:
       - redis
 
 
-  chapp_chat_app:
+  dchat_chat_app:
     build:
       context: .
       dockerfile: ./build/Dockerfile.chat
     pull_policy: never
-    image: chapp_chat_app
-    container_name: chapp_chat_app
-    hostname: chapp_chat_app
+    image: dchat_chat_app
+    container_name: dchat_chat_app
+    hostname: dchat_chat_app
     restart: always
     environment:
-      - CHAPP_NATS_HOST=nats://chapp_chat_nats:4222
-      - CHAPP_CHAT_APP_PRESENCE_HOST=chapp_presence_app
-      - CHAPP_CHAT_APP_PRESENCE_PORT=8888
+      - dchat_NATS_HOST=nats://dchat_chat_nats:4222
+      - dchat_CHAT_APP_PRESENCE_HOST=dchat_presence_app
+      - dchat_CHAT_APP_PRESENCE_PORT=8888
     ports:
       - "8008:8008"
     depends_on:
       - nats
 
 
-  chapp_presence_app:
+  dchat_presence_app:
     build:
       context: .
       dockerfile: ./build/Dockerfile.presence
     pull_policy: never
-    image: chapp_presence_app
-    container_name: chapp_presence_app
-    hostname: chapp_presence_app
+    image: dchat_presence_app
+    container_name: dchat_presence_app
+    hostname: dchat_presence_app
     restart: always
     environment:
-      - CHAPP_ETCD_HOST=http://chapp_presence_etcd:2379
+      - dchat_ETCD_HOST=http://dchat_presence_etcd:2379
     ports:
       - "8080:8080"
     depends_on:

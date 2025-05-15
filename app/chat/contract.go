@@ -3,9 +3,9 @@ package chat
 import (
 	"context"
 
-	"github.com/RezaMokaram/chapp/config"
-	chatPort "github.com/RezaMokaram/chapp/internal/chat/port"
 	"github.com/nats-io/nats.go"
+	"github.com/rezamokaram/dchat/config"
+	chatPort "github.com/rezamokaram/dchat/internal/chat/port"
 )
 
 type ChatApp interface {

@@ -3,7 +3,7 @@ package port
 import (
 	"context"
 
-	"github.com/RezaMokaram/chapp/internal/presence/domain"
+	"github.com/rezamokaram/dchat/internal/presence/domain"
 )
 
 type Repo interface {

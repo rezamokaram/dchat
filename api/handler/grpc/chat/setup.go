@@ -5,9 +5,9 @@ import (
 	"log"
 	"net"
 
-	"github.com/RezaMokaram/chapp/api/pb"
-	"github.com/RezaMokaram/chapp/app/chat"
-	"github.com/RezaMokaram/chapp/config"
+	"github.com/rezamokaram/dchat/api/pb"
+	"github.com/rezamokaram/dchat/app/chat"
+	"github.com/rezamokaram/dchat/config"
 	"google.golang.org/grpc"
 )
 

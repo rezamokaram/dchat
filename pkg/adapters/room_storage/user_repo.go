@@ -5,11 +5,11 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/RezaMokaram/chapp/internal/user/domain"
-	"github.com/RezaMokaram/chapp/internal/user/port"
-	"github.com/RezaMokaram/chapp/pkg/adapters/room_storage/mapper"
-	"github.com/RezaMokaram/chapp/pkg/adapters/room_storage/types"
-	"github.com/RezaMokaram/chapp/pkg/cache"
+	"github.com/rezamokaram/dchat/internal/user/domain"
+	"github.com/rezamokaram/dchat/internal/user/port"
+	"github.com/rezamokaram/dchat/pkg/adapters/room_storage/mapper"
+	"github.com/rezamokaram/dchat/pkg/adapters/room_storage/types"
+	"github.com/rezamokaram/dchat/pkg/cache"
 
 	"gorm.io/gorm"
 )

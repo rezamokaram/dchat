@@ -1,9 +1,9 @@
 package mappers
 
 import (
-	"github.com/RezaMokaram/chapp/internal/chat/domain"
-	"github.com/RezaMokaram/chapp/pkg/adapters/pubsub/types"
 	"github.com/google/uuid"
+	"github.com/rezamokaram/dchat/internal/chat/domain"
+	"github.com/rezamokaram/dchat/pkg/adapters/pubsub/types"
 )
 
 func MessageSubscriber2Domain(msg types.Message) (*domain.Message, error) {

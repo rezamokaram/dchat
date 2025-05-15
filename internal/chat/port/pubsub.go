@@ -3,7 +3,7 @@ package port
 import (
 	"context"
 
-	"github.com/RezaMokaram/chapp/internal/chat/domain"
+	"github.com/rezamokaram/dchat/internal/chat/domain"
 )
 
 type Pubsub interface {

@@ -3,13 +3,13 @@ package chat
 import (
 	"context"
 
-	"github.com/RezaMokaram/chapp/config"
-	"github.com/RezaMokaram/chapp/internal/chat"
-	chatPort "github.com/RezaMokaram/chapp/internal/chat/port"
-	"github.com/RezaMokaram/chapp/pkg/adapters/presence_client"
-	"github.com/RezaMokaram/chapp/pkg/adapters/pubsub"
-	pkgNats "github.com/RezaMokaram/chapp/pkg/nats"
 	"github.com/nats-io/nats.go"
+	"github.com/rezamokaram/dchat/config"
+	"github.com/rezamokaram/dchat/internal/chat"
+	chatPort "github.com/rezamokaram/dchat/internal/chat/port"
+	"github.com/rezamokaram/dchat/pkg/adapters/presence_client"
+	"github.com/rezamokaram/dchat/pkg/adapters/pubsub"
+	pkgNats "github.com/rezamokaram/dchat/pkg/nats"
 )
 
 type app struct {

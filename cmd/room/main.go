@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"log"
 
-	grpc "github.com/RezaMokaram/chapp/api/handler/grpc/room"
-	"github.com/RezaMokaram/chapp/app/room"
-	"github.com/RezaMokaram/chapp/config"
+	grpc "github.com/rezamokaram/dchat/api/handler/grpc/room"
+	"github.com/rezamokaram/dchat/app/room"
+	"github.com/rezamokaram/dchat/config"
 )
 
 func main() {

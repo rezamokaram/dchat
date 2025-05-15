@@ -3,12 +3,12 @@ package service
 import (
 	"context"
 
-	"github.com/RezaMokaram/chapp/api/pb"
-	roomDomain "github.com/RezaMokaram/chapp/internal/room/domain"
-	roomPort "github.com/RezaMokaram/chapp/internal/room/port"
-	"github.com/RezaMokaram/chapp/internal/user"
-	userDomain "github.com/RezaMokaram/chapp/internal/user/domain"
-	userPort "github.com/RezaMokaram/chapp/internal/user/port"
+	"github.com/rezamokaram/dchat/api/pb"
+	roomDomain "github.com/rezamokaram/dchat/internal/room/domain"
+	roomPort "github.com/rezamokaram/dchat/internal/room/port"
+	"github.com/rezamokaram/dchat/internal/user"
+	userDomain "github.com/rezamokaram/dchat/internal/user/domain"
+	userPort "github.com/rezamokaram/dchat/internal/user/port"
 )
 
 type RoomService struct {
