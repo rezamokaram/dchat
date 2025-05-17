@@ -24,3 +24,12 @@ type ETCD struct {
 type NATS struct {
 	Host string `env-required:"false" json:"host" env:"dchat_NATS_HOST"`
 }
+
+type SCYLLA struct {
+	Hosts            []string `env-required:"false" json:"hosts" env:"dchat_SCYLLA_HOSTS"`
+	Keyspace         string   `env-required:"false" json:"keyspace" env:"dchat_SCYLLA_KEYSPACE"`
+	ConsistencyLevel string   `env-required:"false" json:"consistency_level" env:"dchat_SCYLLA_CONSISTENCY_LEVEL"`
+	ProtoVersion     int      `env-required:"false" json:"proto_version" env:"dchat_SCYLLA_PROTO_VERSION"`
+	ConnectTimeout   int      `env-required:"false" json:"connect_timeout" env:"dchat_SCYLLA_CONNECTION_TIMEOUT"`
+	Timeout          int      `env-required:"false" json:"timeout" env:"dchat_SCYLLA_TIMEOUT"`
+}

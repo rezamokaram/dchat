@@ -1,8 +1,9 @@
 package config
 
 type ChatConfig struct {
-	Chat CHAT `env-required:"false" json:"chat"`
-	Nats NATS `env-required:"false" json:"nats"`
+	Chat   CHAT   `env-required:"false" json:"chat"`
+	Nats   NATS   `env-required:"false" json:"nats"`
+	Scylla SCYLLA `env-required:"false" json:"scylla"`
 }
 
 func (ChatConfig) configSignature() {}
